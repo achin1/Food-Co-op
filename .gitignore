@@ -1,0 +1,14 @@
+*~
+*.log
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
+*.class
+*.jar
+
+*.bz2
+*.gz
+*.tar
+*.zip
