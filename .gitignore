@@ -1,5 +1,6 @@
 *~
 *.log
+*.sqlite3
 .DS_Store?
 ehthumbs.db
 Icon?
