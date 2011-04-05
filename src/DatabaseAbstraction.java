@@ -18,7 +18,7 @@ public class DatabaseAbstraction
 		{
 			Class.forName("org.sqlite.JDBC");
 			Connection connection = 
-				DriverManager.getConnection("jdbc:sqlite:database.sqlite3");
+				DriverManager.getConnection("jdbc:sqlite:db/database.sqlite3");
 			connection.setAutoCommit(false);
 			connection.setAutoCommit(true);
 			return connection;
@@ -46,7 +46,7 @@ public class DatabaseAbstraction
 			Connection connection = connectToDatabase();
 			Statement stat = connection.createStatement();
 			ResultSet rs = stat.executeQuery(
-					"SELECT * FROM Members WHERE first_name='" + first_name +
+					"SELECT * FROM members WHERE first_name='" + first_name +
 					"' AND last_name='" + last_name + "';"
 			);
 			while (rs.next())
@@ -55,7 +55,7 @@ public class DatabaseAbstraction
 					rs.getInt("id"),
 					rs.getString("first_name"),
 					rs.getString("last_name"),
-					rs.getString("email"),
+					rs.getString("email_address"),
 					new Date((long)rs.getInt("last_signup_date")),
 					rs.getInt("membership_length"),
 					rs.getInt("membership_type"),
