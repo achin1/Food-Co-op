@@ -12,6 +12,13 @@ public class Member extends Model {
 	private int yearInSchool;
 	private boolean receiveEmail;
 	private boolean isActive;
+	private static final String[] MEMBERSHIP_LENGTHS = { "Semester", "Year" };
+	private static final String[] MEMBERSHIP_TYPES = {
+		"Ordinary",
+		"Working",
+		"Core",
+		"Coordinator"
+	};
 	
 	public Member() {}
 	
@@ -63,5 +70,13 @@ public class Member extends Model {
 
 	public int getId() {
 		return id;
+	}
+	
+	public String getMembershipType() {
+		return MEMBERSHIP_TYPES[membershipType];
+	}
+	
+	public String getMembershipLength() {
+		return MEMBERSHIP_LENGTHS[membershipLength];
 	}
 }
