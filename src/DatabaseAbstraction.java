@@ -1,5 +1,9 @@
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.*;
 
 public class DatabaseAbstraction
 {
@@ -41,7 +45,10 @@ public class DatabaseAbstraction
 		{
 			Connection connection = connectToDatabase();
 			Statement stat = connection.createStatement();
-			ResultSet rs = stat.executeQuery("SELECT * FROM Members WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';");
+			ResultSet rs = stat.executeQuery(
+					"SELECT * FROM Members WHERE first_name='" + first_name +
+					"' AND last_name='" + last_name + "';"
+			);
 			while (rs.next())
 			{
 				Member m = new Member(
@@ -49,13 +56,13 @@ public class DatabaseAbstraction
 					rs.getString("first_name"),
 					rs.getString("last_name"),
 					rs.getString("email"),
-					new Date( (long) rs.getInt("last_signup_date") ),
+					new Date((long)rs.getInt("last_signup_date")),
 					rs.getInt("membership_length"),
 					rs.getInt("membership_type"),
 					rs.getInt("year_in_school"),
 					(rs.getInt("receive_email") != 0),
 					(rs.getInt("is_active") != 0)
-					);
+				);
 				memberList.add(m);
 			}
 			connection.close();
