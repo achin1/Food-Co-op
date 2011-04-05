@@ -20,8 +20,6 @@ public class Member extends Model {
 		"Coordinator"
 	};
 	
-	public Member() {}
-	
 	public Member(int id, String firstName, String lastName, String email,
 			Date last_signup_date, int membership_length, int membership_type,
 			int year_in_school, boolean recieve_email, boolean is_active) {
