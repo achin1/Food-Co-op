@@ -30,10 +30,6 @@ public class Member extends Model {
 		this.recieve_email = recieve_email;
 		this.is_active = is_active;
 	}
-
-	public static ArrayList<Member> all() {
-		return DatabaseAbstraction.allMember();
-	}
 	
 	public static ArrayList<Member> findByName(String firstName, String lastName) {
 		return DatabaseAbstraction.lookupMember(firstName, lastName);
