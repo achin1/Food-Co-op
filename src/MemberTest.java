@@ -1,7 +1,5 @@
 import static org.junit.Assert.*;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,9 +9,7 @@ public class MemberTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testMember = new Member(1, "Foo", "Bar", "fbar@example.com",
-				new Date(1234567890), 1, 1, 2, false, true
-		);
+		testMember = DatabaseAbstraction.lookupMember("John", "Smith").get(0);
 	}
 
 	@Test
@@ -28,29 +24,29 @@ public class MemberTest {
 
 	@Test
 	public void testFindByName() {
-		fail("Not yet implemented (cannot yet be programmatically checked)");
+		assertEquals(testMember.getId(), Member.findByName("John", "Smith").get(0).getId());
 	}
 
 	@Test
 	public void testGetFirstName() {
-		assertEquals("Foo", testMember.getFirstName());
+		assertEquals("John", testMember.getFirstName());
 	}
 
 	@Test
 	public void testSetFirstName() {
-		testMember.setFirstName("Baz");
-		assertEquals("Baz", testMember.getFirstName());
+		testMember.setFirstName("John");
+		assertEquals("John", testMember.getFirstName());
 	}
 
 	@Test
 	public void testGetLastName() {
-		assertEquals("Bar", testMember.getLastName());
+		assertEquals("Smith", testMember.getLastName());
 	}
 
 	@Test
 	public void testSetLastName() {
-		testMember.setLastName("Baz");
-		assertEquals("Baz", testMember.getLastName());
+		testMember.setLastName("Smith");
+		assertEquals("Smith", testMember.getLastName());
 	}
 
 	@Test
