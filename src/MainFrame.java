@@ -1,17 +1,16 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 /**
@@ -88,7 +87,7 @@ public class MainFrame extends JFrame {
 	public MainFrame(){
 		setBounds(400, 150, 600, 425);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		//setResizable(false);
 		setVisible(true);
 		setTitle("Main Menu");
 		Font buttonFont = new Font("Calibri", Font.BOLD, 12);
@@ -290,9 +289,8 @@ public class MainFrame extends JFrame {
 	 * 
 	 * Takes the result arraylist and formats it to be displayed in the generalLookupTextArea
 	 */
-	public void printSearchResult(ArrayList<String> searchResult)
+	/*public void printSearchResult(ArrayList<String> searchResult)
 	{
-		System.out.println(searchResult.get(0));
 		for(int j = 0; j < searchResult.size(); j++){
 			for(int i = 0; i < 3; i++)
 			{
@@ -314,12 +312,29 @@ public class MainFrame extends JFrame {
 		//"First Name\t\tLastName\t\tMembership Type\t\t\tE-Mail\t\t\t\n"
 	}
 	
+	*/
+	public void printSearchResult(ArrayList<Member> searchResult)
+	{
+		for(int j = 0; j < searchResult.size(); j++){
+			generalLookupTextArea.append(searchResult.get(j).getFirstName()+ "\t\t"+ searchResult.get(j).getLastName()+ "\t\t"
+											+ searchResult.get(j).getMembershipType() + "\t\t");
+											//+ searchResult.get(j).getEmailAddress()+ "\t\t\t\n");
+		}
+		
+		
+		//generalLookupTextArea.append("Michael\t\tWang\t\tCoordinator\t\t\tmwang10@binghamton.edu\t\t\t\n");
+		//generalLookupTextArea.append("Jeremy\t\tSimpson\t\tCore\t\t\tjsimpso1@binghamton.edu\t\t\t\n");
+		//generalLookupTextArea.append("Jeremy\t\tSmith\t\tVolunteer\t\t\tjsmith1@binghamton.edu\t\t\t\n");
+		//"First Name\t\tLastName\t\tMembership Type\t\t\tE-Mail\t\t\t\n"
+	}
 	/**
 	 * 
 	 * @param errorMessage a string to be displayed in the error message popup
 	 * 
 	 * displays a given string as an error message
 	 */
+	
+	
 	public void lookUpError(String errorMessage)
 	{
 		JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
