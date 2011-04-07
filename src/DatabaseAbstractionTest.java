@@ -5,27 +5,25 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 
-/**
- * @author Jonathan
- *
+/*
+ * @author JonathanGarcia
  */
 public class DatabaseAbstractionTest{
 
-	/**
+	/*
 	 * Test method for {@link DatabaseAbstraction#lookupMember(String, String)}.
 	 */
 	@Test
 	public void testLookupMember() {
 		//fail("Not yet implemented");
-		if(DatabaseAbstraction.lookupMember("john", "doe").isEmpty()){
-			assertEquals("Empty List should return 0", 0, DatabaseAbstraction.lookupMember("john", "doe").size());
-		}else{
-			ArrayList<Member> testList = DatabaseAbstraction.lookupMember("john","doe");
-			for(Member m: testList){
-				assertEquals("john", m.getFirstName());
-				assertEquals("doe", m.getLastName());				
+		ArrayList<Member> testList = DatabaseAbstraction.lookupMember("John","Smith");
+
+		if(testList.size() != 0){
+			for(Member m: testList){			
+				assertEquals("John Smith", m.getFirstName()+" "+m.getLastName());				
 			}
-			
+		}else{
+			assertEquals("Empty List should return a size of 0", 0, testList.size());			
 		}		
 	} 
 }

@@ -160,7 +160,7 @@ public class DatabaseAbstraction
 			);
 			ps.setString(1, m.getFirstName());
 			ps.setString(2, m.getLastName());
-			ps.setString(3, m.getEmailAddress());
+			ps.setString(3, ""); // need getEmailAddress()
 			ps.setString(4, m.getMembershipLength()); // getMembershipLength
 												   // should be int not String
 			ps.setString(5, m.getMembershipType());   // getMembershipType should
