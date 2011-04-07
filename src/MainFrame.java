@@ -320,8 +320,8 @@ public class MainFrame extends JFrame {
 	{
 		for(int j = 0; j < searchResult.size(); j++){
 			generalLookupTextArea.append(searchResult.get(j).getFirstName()+ "\t\t"+ searchResult.get(j).getLastName()+ "\t\t"
-											+ searchResult.get(j).getMembershipType() + "\t\t"
-											+ searchResult.get(j).getEmailAddress()+ "\t\t\t\n");
+											+ searchResult.get(j).getMembershipType() + "\t\t\t"
+											+ searchResult.get(j).getEmailAddress()+ "\t\t\n");
 		}
 		
 		
