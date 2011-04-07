@@ -32,7 +32,9 @@ public class DatabaseAbstraction
 	
 	/**
 	* Connects to the queries the database and then queries it given the input
-	* parameters
+	* parameters.  Uses a PreparedStatement instead of a regular Statement so 
+	* that no matter what characters are in the input strings, they are placed
+	* directly in the database and won't affect the statement in any way.
 	* @param first_name		First name of the member to look for
 	* @param last_name		Last name of the member to look for
 	* @return memberList	An arraylist of member objects which match the 
@@ -46,7 +48,6 @@ public class DatabaseAbstraction
 		try
 		{
 			Connection connection = connectToDatabase();
-			//Statement stat = connection.createStatement();			
 			PreparedStatement ps = connection.prepareStatement(
 				"SELECT * FROM members WHERE first_name = ? AND " +
 				"last_name = ?");
