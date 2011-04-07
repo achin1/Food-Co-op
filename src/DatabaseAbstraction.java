@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class DatabaseAbstraction
@@ -37,18 +38,22 @@ public class DatabaseAbstraction
 	* @return memberList	An arraylist of member objects which match the 
 	*						parameters
 	*/
-	public static ArrayList<Member> lookupMember(String first_name, String last_name)
+	public static ArrayList<Member> lookupMember(String first_name, 
+		String last_name)
 	{
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		
 		try
 		{
 			Connection connection = connectToDatabase();
-			Statement stat = connection.createStatement();
-			ResultSet rs = stat.executeQuery(
-					"SELECT * FROM members WHERE first_name='" + first_name +
-					"' AND last_name='" + last_name + "';"
-			);
+			//Statement stat = connection.createStatement();			
+			PreparedStatement ps = connection.prepareStatement(
+				"SELECT * FROM members WHERE first_name = ? AND " +
+				"last_name = ?");
+			ps.setString(1, first_name);
+			ps.setString(2, last_name);
+			ResultSet rs = ps.executeQuery();
+			
 			while (rs.next())
 			{
 				Member m = new Member(
@@ -65,6 +70,8 @@ public class DatabaseAbstraction
 				);
 				memberList.add(m);
 			}
+			rs.close();
+			ps.close();
 			connection.close();
 		} 
 		catch (Exception e)
