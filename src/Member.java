@@ -35,21 +35,6 @@ public class Member {
 		this.receiveEmail = recieve_email;
 		this.isActive = is_active;
 	}
-	/*
-	public static ArrayList<Member> findByName(String firstName, String lastName) {
-		return DatabaseAbstraction.lookupMember(firstName, lastName);
-	}*/
-	
-	/**
-	 * @deprecated Use findByName() instead.
-	 * @param firstName
-	 * @param lastName
-	 * @return
-	 */
-	/*
-	public static ArrayList<Member> lookupMember(String firstName, String lastName) {
-		return findByName(firstName, lastName);
-	}*/
 
 	public String getFirstName() {
 		return firstName;
