@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Member extends Model {
+public class Member {
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -35,10 +35,10 @@ public class Member extends Model {
 		this.receiveEmail = recieve_email;
 		this.isActive = is_active;
 	}
-	
+	/*
 	public static ArrayList<Member> findByName(String firstName, String lastName) {
 		return DatabaseAbstraction.lookupMember(firstName, lastName);
-	}
+	}*/
 	
 	/**
 	 * @deprecated Use findByName() instead.
@@ -46,9 +46,10 @@ public class Member extends Model {
 	 * @param lastName
 	 * @return
 	 */
+	/*
 	public static ArrayList<Member> lookupMember(String firstName, String lastName) {
 		return findByName(firstName, lastName);
-	}
+	}*/
 
 	public String getFirstName() {
 		return firstName;
@@ -68,6 +69,11 @@ public class Member extends Model {
 
 	public int getId() {
 		return id;
+	}
+	
+	public String getEmailAddress()
+	{
+		return email;
 	}
 	
 	public String getMembershipType() {

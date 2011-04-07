@@ -82,9 +82,12 @@ public class MainFrame extends JFrame {
 	private JButton signOutOfStoreButton;
 	private JButton signOutOfKitchenButton;
 		
+	private Controller controller;
+	private Model model;
 	
-	
-	public MainFrame(){
+	public MainFrame(Controller c, Model m){
+		controller = c;
+		model = m;
 		setBounds(400, 150, 600, 425);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setResizable(false);
@@ -317,8 +320,8 @@ public class MainFrame extends JFrame {
 	{
 		for(int j = 0; j < searchResult.size(); j++){
 			generalLookupTextArea.append(searchResult.get(j).getFirstName()+ "\t\t"+ searchResult.get(j).getLastName()+ "\t\t"
-											+ searchResult.get(j).getMembershipType() + "\t\t");
-											//+ searchResult.get(j).getEmailAddress()+ "\t\t\t\n");
+											+ searchResult.get(j).getMembershipType() + "\t\t"
+											+ searchResult.get(j).getEmailAddress()+ "\t\t\t\n");
 		}
 		
 		
@@ -335,7 +338,7 @@ public class MainFrame extends JFrame {
 	 */
 	
 	
-	public void lookUpError(String errorMessage)
+	public void displayException(String errorMessage)
 	{
 		JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
 	}
@@ -361,7 +364,7 @@ public class MainFrame extends JFrame {
 				if(firstNameTextField.getText().equals("") || lastNameTextField.getText().equals("")){
 					JOptionPane.showMessageDialog(null, str, "Error", JOptionPane.ERROR_MESSAGE);
 				}else{
-					System.out.println("First Name: " + firstNameTextField.getText() + "\nLastName: " + lastNameTextField.getText());
+					printSearchResult(controller.lookUpMember(firstNameTextField.getText(), lastNameTextField.getText()));
 				}
 			
 			}else if(e.getSource().equals(viewMemberButton)){
