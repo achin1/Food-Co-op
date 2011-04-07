@@ -166,7 +166,7 @@ public class DatabaseAbstraction
 			ps.setString(5, m.getMembershipType());   // getMembershipType should
 												   // be int not string
 			ps.setInt(6, 0); // need yearInSchool()
-			ps.setInt(7, 0); // need get receiveEmail()
+			ps.setInt(7, 0); // need getreceiveEmail()
 			ps.setInt(8, 0); // need getIsActive()
 			ps.setInt(9, m.getId());
 			ResultSet rs = ps.executeQuery();
@@ -223,6 +223,62 @@ public class DatabaseAbstraction
 				"WHERE id = ?"
 			);
 			ps.setInt(1, m.getId());
+			ResultSet rs = ps.executeQuery();
+			
+			rs.close();
+			ps.close();
+			connection.close();
+		} 
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}		
+	}
+	
+	/**
+	* Extends a member's membership.  Uses a PreparedStatement.
+	* @param m 					Member to receive extension
+	* @param membership_length 	New membership_length
+	*/
+	public static void extendMembership(Member m, int membership_length)
+	{
+		try
+		{
+			Connection connection = connectToDatabase();
+			PreparedStatement ps = connection.prepareStatement(
+				"UPDATE members SET " +
+				"membership_length = ? " +
+				"WHERE id = ?"
+			);
+			ps.setInt(1, membership_length);
+			ps.setInt(2, m.getId());
+			ResultSet rs = ps.executeQuery();
+			
+			rs.close();
+			ps.close();
+			connection.close();
+		} 
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}		
+	}
+	
+	// TODO: what if an IOU already exists?  it makes sense to add to it
+	/**
+	* Extends a member's membership.  Uses a PreparedStatement.
+	* @param m 					Member to receive extension
+	* @param membership_length 	New membership_length
+	*/
+	public static void addIOU(Member m, int amount)
+	{
+		try
+		{
+			Connection connection = connectToDatabase();
+			PreparedStatement ps = connection.prepareStatement(
+				"INSERT INTO member_iou values(?, ?) ");
+			ps.setInt(1, m.getId());
+			ps.setInt(2, amount);
 			ResultSet rs = ps.executeQuery();
 			
 			rs.close();
