@@ -87,7 +87,7 @@ public class MainFrame extends JFrame {
 	public MainFrame(){
 		setBounds(400, 150, 600, 425);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setResizable(false);
+		setResizable(false);
 		setVisible(true);
 		setTitle("Main Menu");
 		Font buttonFont = new Font("Calibri", Font.BOLD, 12);
