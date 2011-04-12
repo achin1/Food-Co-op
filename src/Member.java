@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Member extends Model {
+public class Member {
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -20,8 +20,6 @@ public class Member extends Model {
 		"Coordinator"
 	};
 	
-	public Member() {}
-	
 	public Member(int id, String firstName, String lastName, String email,
 			Date last_signup_date, int membership_length, int membership_type,
 			int year_in_school, boolean recieve_email, boolean is_active) {
@@ -36,20 +34,6 @@ public class Member extends Model {
 		this.yearInSchool = year_in_school;
 		this.receiveEmail = recieve_email;
 		this.isActive = is_active;
-	}
-	
-	public static ArrayList<Member> findByName(String firstName, String lastName) {
-		return DatabaseAbstraction.lookupMember(firstName, lastName);
-	}
-	
-	/**
-	 * @deprecated Use findByName() instead.
-	 * @param firstName
-	 * @param lastName
-	 * @return
-	 */
-	public static ArrayList<Member> lookupMember(String firstName, String lastName) {
-		return findByName(firstName, lastName);
 	}
 
 	public String getFirstName() {
@@ -72,6 +56,11 @@ public class Member extends Model {
 		return id;
 	}
 	
+	public String getEmailAddress()
+	{
+		return email;
+	}
+	
 	public String getMembershipType() {
 		return MEMBERSHIP_TYPES[membershipType];
 	}
@@ -79,4 +68,43 @@ public class Member extends Model {
 	public String getMembershipLength() {
 		return MEMBERSHIP_LENGTHS[membershipLength];
 	}
+	
+	
+	public int getMembershipLengthInt() {
+		String memLength = MEMBERSHIP_LENGTHS[membershipLength];
+		int status = 0;
+		if(memLength.equals("Semester")){
+			status = 0;
+		}else if(memLength.equals("Year")){
+			status = 1;
+		}
+		
+		return status;
+	}
+	
+	
+	public int getMembershipTypeInt() {
+		/*
+		"Ordinary",
+		"Working",
+		"Core",
+		"Coordinator"
+		 */
+		String memType = MEMBERSHIP_LENGTHS[membershipLength];
+		int status = 0;
+		
+		if(memType.equals("Ordinary")){
+			status = 0;
+		}else if(memType.equals("Working")){
+			status = 1;
+		}else if(memType.equals("Core")){
+			status = 2;
+		}else if(memType.equals("Coordinator")){
+			status = 3;
+		}
+		
+		return status;
+	}
+	
+	
 }
