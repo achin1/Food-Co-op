@@ -355,9 +355,8 @@ public class MainFrame extends JFrame {
 	*/
 	public void printSearchResult(ArrayList<Member> searchResult)
 	{
-
-                generalLookupTextArea.setText("First Name\t\tLastName\t\tMembership Type\tE-Mail\t\t\t\n");
-		for(int j = 0; j < searchResult.size(); j++){
+			generalLookupTextArea.setText(" ");
+      		for(int j = 0; j < searchResult.size(); j++){
 			generalLookupTextArea.append(searchResult.get(j).getFirstName()+ "\t\t"+ searchResult.get(j).getLastName()+ "\t\t"
 											+ searchResult.get(j).getMembershipType() + "\t\t\t"
 											+ searchResult.get(j).getEmailAddress()+ "\t\t\n");
