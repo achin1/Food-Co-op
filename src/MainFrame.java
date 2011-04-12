@@ -97,11 +97,7 @@ public class MainFrame extends JFrame {
 	public MainFrame(Controller c, Model m){
 		controller = c;
 		model = m;
-<<<<<<< HEAD
 		setBounds(100, 30, 1200, 675);
-=======
-		setBounds(400, 150, 600, 425);
->>>>>>> refs/heads/dev
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
@@ -359,11 +355,8 @@ public class MainFrame extends JFrame {
 	*/
 	public void printSearchResult(ArrayList<Member> searchResult)
 	{
-<<<<<<< HEAD
-               
-=======
+
                 generalLookupTextArea.setText("First Name\t\tLastName\t\tMembership Type\tE-Mail\t\t\t\n");
->>>>>>> refs/heads/dev
 		for(int j = 0; j < searchResult.size(); j++){
 			generalLookupTextArea.append(searchResult.get(j).getFirstName()+ "\t\t"+ searchResult.get(j).getLastName()+ "\t\t"
 											+ searchResult.get(j).getMembershipType() + "\t\t\t"
