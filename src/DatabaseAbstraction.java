@@ -106,7 +106,6 @@ public class DatabaseAbstraction
 		int membership_length,
 		int membership_type,
 		int year_in_school,
-		int receive_email,
 		int is_active)
 	{
 		Date last_signup_date = new Date();
@@ -123,8 +122,7 @@ public class DatabaseAbstraction
 			ps.setInt(6, membership_length);
 			ps.setInt(7, membership_type);
 			ps.setInt(8, year_in_school);
-			ps.setInt(9, receive_email);
-			ps.setInt(10, is_active);
+			ps.setInt(9, is_active);
 			ResultSet rs = ps.executeQuery();
 			
 			rs.close();
@@ -154,21 +152,17 @@ public class DatabaseAbstraction
 				"membership_length = ?, " +
 				"membership_type = ?, " +
 				"year_in_school = ?, " +
-				"receive_email = ?, " +
 				"is_active = ? " +
 				"WHERE id = ?"
 			);
 			ps.setString(1, m.getFirstName());
 			ps.setString(2, m.getLastName());
-			ps.setString(3, ""); // need getEmailAddress()
-			ps.setString(4, m.getMembershipLength()); // getMembershipLength
-												   // should be int not String
-			ps.setString(5, m.getMembershipType());   // getMembershipType should
-												   // be int not string
-			ps.setInt(6, 0); // need yearInSchool()
-			ps.setInt(7, 0); // need getreceiveEmail()
-			ps.setInt(8, 0); // need getIsActive()
-			ps.setInt(9, m.getId());
+			ps.setString(3, m.getEmailAddress());
+			ps.setInt(4, m.getMembershipLengthInt());
+			ps.setInt(5, m.getMembershipTypeInt());
+			ps.setInt(6, m.getYearInSchool());
+			ps.setInt(7, 1); // set to true by default
+			ps.setInt(8, m.getId());
 			ResultSet rs = ps.executeQuery();
 			
 			rs.close();
@@ -279,6 +273,38 @@ public class DatabaseAbstraction
 				"INSERT INTO member_iou values(?, ?) ");
 			ps.setInt(1, m.getId());
 			ps.setInt(2, amount);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.close();
+			ps.close();
+			connection.close();
+		} 
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}		
+	}
+	
+	/**
+	* Adds a shift to the.  Uses a PreparedStatement.
+	* @param m 					Member to receive extension
+	* @param startTime		 	start_time in the database
+	* @param numberOfMinutes 	How long the shift lasted, in minutes
+	* @param workType		 	job_type in the database
+	*/
+	public static void addShift(Member m, Date startTime, 
+		int numberOfMinutes, String workType)
+	{
+		try
+		{
+			Connection connection = connectToDatabase();
+			PreparedStatement ps = connection.prepareStatement(
+				"INSERT INTO shifts values(?, ?, ?, ?, ?) ");
+			ps.setNull(1, java.sql.Types.INTEGER);
+			ps.setInt(2, mgetID());
+			ps.setInt(3, startTime);
+			ps.setInt(4, numberOfMinutes);
+			ps.setInt(5, workType);
 			ResultSet rs = ps.executeQuery();
 			
 			rs.close();
