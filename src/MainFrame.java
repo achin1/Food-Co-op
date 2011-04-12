@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -55,6 +57,11 @@ public class MainFrame extends JFrame {
 	private JLabel lastNameLabel;
 	private JLabel storeLabel;
 	private JLabel kitchenLabel;
+	private JLabel firstNameScrollLabel;
+	private JLabel lastNameScrollLabel;
+	private JLabel membershipScrollLabel;
+	private JLabel emailScrollLabel;
+
 	
 	//JTextFields
 	private JTextField firstNameTextField;
@@ -71,6 +78,8 @@ public class MainFrame extends JFrame {
 	private JScrollPane kitchenScrollPane;
 	
 	
+	private JMenu menu;
+	
 	//JButtons
 	private JButton searchButton;
 	private JButton viewMemberButton;
@@ -82,10 +91,13 @@ public class MainFrame extends JFrame {
 	private JButton signOutOfStoreButton;
 	private JButton signOutOfKitchenButton;
 		
+	private Controller controller;
+	private Model model;
 	
-	
-	public MainFrame(){
-		setBounds(400, 150, 600, 425);
+	public MainFrame(Controller c, Model m){
+		controller = c;
+		model = m;
+		setBounds(100, 30, 1200, 675);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
@@ -93,18 +105,22 @@ public class MainFrame extends JFrame {
 		Font buttonFont = new Font("Calibri", Font.BOLD, 12);
 		Font f2 = new Font("Calibri", Font.PLAIN, 14);
 		eastPanel = new JPanel();
+		//eastPanel.setBackground(Color.GREEN);
 		westPanel = new JPanel();
 		topWestPanel = new JPanel();
+		//topWestPanel.setBackground(Color.CYAN);
 		middleWestPanel = new JPanel();
+		middleWestPanel.setBackground(Color.YELLOW);
 		bottomWestPanel = new JPanel();
+		//bottomWestPanel.setBackground(Color.PINK);
 		mainPanel = new JPanel();
 		
 		mainPanel.setLayout(null);
 		
 		eastPanel.setLayout(null);
-		eastPanel.setBounds(430, 0, 170, 425);
+		eastPanel.setBounds(900, 0, 300, 675);
 		westPanel.setLayout(new GridLayout(3, 1));
-		westPanel.setBounds(0, 0, 430, 425);
+		westPanel.setBounds(0, 0, 900, 675);
 		topWestPanel.setLayout(null);
 		middleWestPanel.setLayout(null);
 		bottomWestPanel.setLayout(null);
@@ -120,21 +136,23 @@ public class MainFrame extends JFrame {
 		 */
 		firstNameLabel = new JLabel("First Name:");
 		firstNameLabel.setFont(f2);
-		firstNameLabel.setBounds(15, 25, 70, 10);
+		firstNameLabel.setBounds(125, 39, 70, 10);
 		
 		lastNameLabel = new JLabel("Last Name:");
 		lastNameLabel.setFont(f2);
-		lastNameLabel.setBounds(15, 55, 70, 10);
+		lastNameLabel.setBounds(125, 99, 70, 10);
 		
 		firstNameTextField = new JTextField();
-		firstNameTextField.setBounds(88, 23, 335, 20);
+		firstNameTextField.setColumns(5);
+		firstNameTextField.setBounds(195, 33, 400, 30);
 	
 		lastNameTextField = new JTextField();
-		lastNameTextField.setBounds(88, 53, 335, 20);
+		lastNameTextField.setBounds(195, 93, 400, 30);
 		
 		searchButton = new JButton("Search");
 		searchButton.setFont(buttonFont);
-		searchButton.setBounds(343, 78, 80, 25);
+		searchButton.setBounds(515, 146, 80, 25);
+		searchButton.setEnabled(false);
 		
 		topWestPanel.add(firstNameLabel);
 		topWestPanel.add(lastNameLabel);
@@ -149,12 +167,30 @@ public class MainFrame extends JFrame {
 		 * 
 		 * 
 		 */
+		firstNameScrollLabel = new JLabel("First Name");
+		lastNameScrollLabel = new JLabel("Last Name");
+		membershipScrollLabel = new JLabel("Membership");
+		emailScrollLabel = new JLabel("EMail");
+		
+		firstNameScrollLabel.setFont(f2);
+		lastNameScrollLabel.setFont(f2);
+		membershipScrollLabel.setFont(f2);
+		emailScrollLabel.setFont(f2);
+		
+		firstNameScrollLabel.setBounds(80, 0, 70, 20);
+		lastNameScrollLabel.setBounds(280, 0, 70, 20);
+		membershipScrollLabel.setBounds(500, 0, 90, 20);
+		emailScrollLabel.setBounds(720, 0, 70, 20);
+		
 		generalLookupTextArea = new JTextArea();
 		generalLookupTextArea.setFont(f2);
 		generalLookupTextArea.setEditable(false);
-		generalLookupTextArea.setText("First Name\t\tLastName\t\tMembership Type\t\tE-Mail\t\t\t\n");
 		generalLookupScrollPane = new JScrollPane(generalLookupTextArea);
-		generalLookupScrollPane.setBounds(15, 0, 410, 125);
+		generalLookupScrollPane.setBounds(0, 20, 900, 205);
+		middleWestPanel.add(firstNameScrollLabel);
+		middleWestPanel.add(lastNameScrollLabel);
+		middleWestPanel.add(membershipScrollLabel);
+		middleWestPanel.add(emailScrollLabel);
 		middleWestPanel.add(generalLookupScrollPane);
 		
 //==============================================================
@@ -165,27 +201,27 @@ public class MainFrame extends JFrame {
 		 * 
 		 */
 		viewMemberButton = new JButton("View Member");
-		viewMemberButton.setBounds(15, 30, 130, 20);
+		viewMemberButton.setBounds(65, 30, 150, 40);
 		viewMemberButton.setFont(buttonFont);
 		
 		updateMemberButton = new JButton("Update Member");
-		updateMemberButton.setBounds(155, 30, 130, 20);
+		updateMemberButton.setBounds(365, 30, 150, 40);
 		updateMemberButton.setFont(buttonFont);
 		
 		addMemberButton = new JButton("Add Member");
-		addMemberButton.setBounds(295, 30, 130, 20);
+		addMemberButton.setBounds(665, 30, 150, 40);
 		addMemberButton.setFont(buttonFont);
 		
 		signIntoStoreButton = new JButton("Sign Into Store");
-		signIntoStoreButton.setBounds(15, 60, 130, 20);
+		signIntoStoreButton.setBounds(65, 100, 150, 40);
 		signIntoStoreButton.setFont(buttonFont);
 		
 		signIntoKitchenButton = new JButton("Sign Into Kitchen");
-		signIntoKitchenButton.setBounds(155, 60, 130, 20);
+		signIntoKitchenButton.setBounds(365, 100, 150, 40);
 		signIntoKitchenButton.setFont(buttonFont);
 		
 		viewScheduleButton = new JButton("View Schedule");
-		viewScheduleButton.setBounds(295, 60, 130, 20);
+		viewScheduleButton.setBounds(665, 100, 150, 40);
 		viewScheduleButton.setFont(buttonFont);
 		
 		bottomWestPanel.add(viewMemberButton);
@@ -206,20 +242,20 @@ public class MainFrame extends JFrame {
 		 */
 		//Un-comment these 2 lines to add text to JTextAreas for testing
 		storeLabel = new JLabel("Store:");
-		storeLabel.setBounds(10, 15, 40, 10);
+		storeLabel.setBounds(15, 15, 40, 10);
 		storeLabel.setFont(f2);
 		
 		kitchenLabel = new JLabel("Kitchen:");
-		kitchenLabel.setBounds(10, 200, 80, 10);
+		kitchenLabel.setBounds(15, 320, 80, 10);
 		kitchenLabel.setFont(f2);
 		
 		signOutOfStoreButton = new JButton("Sign Out");
 		signOutOfStoreButton.setFont(buttonFont);
-		signOutOfStoreButton.setBounds(60, 155, 80, 25);
+		signOutOfStoreButton.setBounds(190, 290, 80, 25);
 		
 		signOutOfKitchenButton = new JButton("Sign Out");
 		signOutOfKitchenButton.setFont(buttonFont);
-		signOutOfKitchenButton.setBounds(60, 340, 80, 25);
+		signOutOfKitchenButton.setBounds(190, 600, 80, 25);
 		
 		storeTextArea = new JTextArea();
 		storeTextArea.setFont(f2);
@@ -227,7 +263,7 @@ public class MainFrame extends JFrame {
 		//storeTextArea.setText("Name One\nName Two\nReallyReallyReallyLongLong AsianNameInStore\n1\n2\n3\n4\n5\n6\n7\n8\n9\n");
 		
 		storeScrollPane = new JScrollPane(storeTextArea);
-		storeScrollPane.setBounds(10, 30, 130, 120);
+		storeScrollPane.setBounds(15, 30, 255, 250);
 		
 		kitchenTextArea = new JTextArea();
 		kitchenTextArea.setFont(f2);
@@ -235,7 +271,7 @@ public class MainFrame extends JFrame {
 		//storeTextArea.setText("Name One\nName Two\nReallyReallyReallyLongLong AsianNameInKitchen\n1\n2\n3\n4\n5\n6\n7\n8\n9\n");
 		
 		kitchenScrollPane = new JScrollPane(kitchenTextArea);
-		kitchenScrollPane.setBounds(10, 215, 130, 120);
+		kitchenScrollPane.setBounds(15, 340, 255, 250);
 		
 		
 		eastPanel.add(storeLabel);
@@ -281,6 +317,10 @@ public class MainFrame extends JFrame {
 		viewScheduleButton.addActionListener(buttonListener);
 		signOutOfStoreButton.addActionListener(buttonListener);
 		signOutOfKitchenButton.addActionListener(buttonListener);
+		//KeyListener Added
+		KeyListener EnterListener = new EnterListener();
+		firstNameTextField.addKeyListener(EnterListener);
+		lastNameTextField.addKeyListener(EnterListener);
 	}
 	
 	/**
@@ -315,10 +355,11 @@ public class MainFrame extends JFrame {
 	*/
 	public void printSearchResult(ArrayList<Member> searchResult)
 	{
+               
 		for(int j = 0; j < searchResult.size(); j++){
 			generalLookupTextArea.append(searchResult.get(j).getFirstName()+ "\t\t"+ searchResult.get(j).getLastName()+ "\t\t"
-											+ searchResult.get(j).getMembershipType() + "\t\t");
-											//+ searchResult.get(j).getEmailAddress()+ "\t\t\t\n");
+											+ searchResult.get(j).getMembershipType() + "\t\t\t"
+											+ searchResult.get(j).getEmailAddress()+ "\t\t\n");
 		}
 		
 		
@@ -335,7 +376,7 @@ public class MainFrame extends JFrame {
 	 */
 	
 	
-	public void lookUpError(String errorMessage)
+	public void displayException(String errorMessage)
 	{
 		JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
 	}
@@ -361,7 +402,7 @@ public class MainFrame extends JFrame {
 				if(firstNameTextField.getText().equals("") || lastNameTextField.getText().equals("")){
 					JOptionPane.showMessageDialog(null, str, "Error", JOptionPane.ERROR_MESSAGE);
 				}else{
-					System.out.println("First Name: " + firstNameTextField.getText() + "\nLastName: " + lastNameTextField.getText());
+					printSearchResult(controller.lookUpMember(firstNameTextField.getText(), lastNameTextField.getText()));
 				}
 			
 			}else if(e.getSource().equals(viewMemberButton)){
@@ -400,5 +441,38 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}	
 		}		
+	}
+	
+	/**
+	 * 
+	 * @author Chun Hung Tseng
+	 * @version 4/7/11
+	 * 
+	 * This is the inner KeyListener class
+	 * 
+	 * 
+	 * 
+	 */
+	class EnterListener implements KeyListener{
+		boolean TextFieldStatus = false;
+		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
+		    if ((key == KeyEvent.VK_ENTER) && !(firstNameTextField.getText().equals("") || lastNameTextField.getText().equals(""))) {
+		    	//System.out.println("First Name: " + firstNameTextField.getText() + "\nLastName: " + lastNameTextField.getText());
+		    	printSearchResult(controller.lookUpMember(firstNameTextField.getText(), lastNameTextField.getText()));
+		        }
+		}
+
+		public void keyReleased(KeyEvent e) {
+			if(firstNameTextField.getText().equals("") || lastNameTextField.getText().equals("")){
+				searchButton.setEnabled(false);
+			}
+			else{
+				searchButton.setEnabled(true);
+			}
+		}
+
+		public void keyTyped(KeyEvent e) {
+		}
 	}
 }
