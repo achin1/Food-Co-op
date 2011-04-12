@@ -68,4 +68,43 @@ public class Member {
 	public String getMembershipLength() {
 		return MEMBERSHIP_LENGTHS[membershipLength];
 	}
+	
+	
+	public int getMembershipLengthInt() {
+		String memLength = MEMBERSHIP_LENGTHS[membershipLength];
+		int status = 0;
+		if(memLength.equals("Semester")){
+			status = 0;
+		}else if(memLength.equals("Year")){
+			status = 1;
+		}
+		
+		return status;
+	}
+	
+	
+	public int getMembershipTypeInt() {
+		/*
+		"Ordinary",
+		"Working",
+		"Core",
+		"Coordinator"
+		 */
+		String memType = MEMBERSHIP_LENGTHS[membershipLength];
+		int status = 0;
+		
+		if(memType.equals("Ordinary")){
+			status = 0;
+		}else if(memType.equals("Working")){
+			status = 1;
+		}else if(memType.equals("Core")){
+			status = 2;
+		}else if(memType.equals("Coordinator")){
+			status = 3;
+		}
+		
+		return status;
+	}
+	
+	
 }
