@@ -24,7 +24,7 @@ public class DatabaseAbstraction
 			connection.setAutoCommit(true);
 			return connection;
 		} 
-		catch (Exception e)
+		throw (Exception e)
 		{
 			System.out.println(e);
 			return null;
@@ -67,7 +67,6 @@ public class DatabaseAbstraction
 					rs.getInt("membership_length"),
 					rs.getInt("membership_type"),
 					rs.getInt("year_in_school"),
-					(rs.getInt("receive_email") != 0),
 					(rs.getInt("is_active") != 0)
 				);
 				memberList.add(m);
@@ -76,7 +75,7 @@ public class DatabaseAbstraction
 			ps.close();
 			connection.close();
 		} 
-		catch (Exception e)
+		throw (Exception e)
 		{
 			System.out.println(e);
 		}
@@ -128,7 +127,7 @@ public class DatabaseAbstraction
 			ps.close();
 			connection.close();
 		} 
-		catch (Exception e)
+		throw (Exception e)
 		{
 			System.out.println(e);
 		}		
@@ -168,7 +167,7 @@ public class DatabaseAbstraction
 			ps.close();
 			connection.close();
 		} 
-		catch (Exception e)
+		throw (Exception e)
 		{
 			System.out.println(e);
 		}		
@@ -222,7 +221,7 @@ public class DatabaseAbstraction
 			ps.close();
 			connection.close();
 		} 
-		catch (Exception e)
+		throw (Exception e)
 		{
 			System.out.println(e);
 		}		
@@ -251,7 +250,7 @@ public class DatabaseAbstraction
 			ps.close();
 			connection.close();
 		} 
-		catch (Exception e)
+		throw (Exception e)
 		{
 			System.out.println(e);
 		}		
@@ -278,7 +277,7 @@ public class DatabaseAbstraction
 			ps.close();
 			connection.close();
 		} 
-		catch (Exception e)
+		throw (Exception e)
 		{
 			System.out.println(e);
 		}		
@@ -310,7 +309,41 @@ public class DatabaseAbstraction
 			ps.close();
 			connection.close();
 		} 
-		catch (Exception e)
+		throw (Exception e)
+		{
+			System.out.println(e);
+		}		
+	}
+	
+	/**
+	* Adds discounts to member_discounts table. If member doesn't
+	* exist createUses a PreparedStatement.
+	* @param m 					Member to receive extension
+	* @param numberOfDiscounts 	How many discounts the member has earned
+	*/
+	public static void addDiscounts(Member m, int numberOfDiscounts)
+	{
+		try
+		{
+			/**
+			
+			Connection connection = connectToDatabase();
+			PreparedStatement ps = connection.prepareStatement(
+				"INSERT INTO shifts values(?, ?, ?, ?, ?) ");
+			ps.setNull(1, java.sql.Types.INTEGER);
+			ps.setInt(2, mgetID());
+			ps.setInt(3, startTime);
+			ps.setInt(4, numberOfMinutes);
+			ps.setInt(5, workType);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.close();
+			ps.close();
+			connection.close();
+			
+			*/
+		} 
+		throw (Exception e)
 		{
 			System.out.println(e);
 		}		
