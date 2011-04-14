@@ -6,6 +6,7 @@ public class Model
 			String lastName) throws Exception
 	{
 		//throw new Exception();
+		
 		return DatabaseAbstraction.lookupMember(firstName, lastName);
 	}
 }
