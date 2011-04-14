@@ -35,4 +35,51 @@ public class Controller
 		
 		return searchResult;
 	}
+	
+	
+	/**
+	 * Try Catch Method.
+	 * Executes when a member is being signed into the kitchen
+	 * View will call this method on signIntoKitchen(). 
+	 * If an exception is made, it runs the createEmptyArrayList method as the return
+	 * @param index
+	 * @return array list of members 
+	 **/
+	public ArrayList<Member> signIntoKitchen(int index)
+	{
+		ArrayList<Member> signedIntoKitchen = new ArrayList<Member>();
+		try
+		{
+			signedIntoKitchen = model.signIntoKitchen(index);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+		
+		return signedIntoKitchen;
+	}
+	
+	/**
+	 * Try Catch Method.
+	 * Executes when a member is being signed into the kitchen
+	 * View will call this method on signIntoStore(). 
+	 * If an exception is made, it runs the createEmptyArrayList method as the return
+	 * @param index
+	 * @return array list of members 
+	 **/
+	public ArrayList<Member> signIntoStore(int index)
+	{
+		ArrayList<Member> signedIntoStore = new ArrayList<Member>();
+		try
+		{
+			signedIntoStore = model.signIntoKitchen(index);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+		
+		return signedIntoStore;
+	}
 }

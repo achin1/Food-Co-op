@@ -22,46 +22,60 @@ public class Model
 		return signedIntoStore;
 	}
 	
-	public ArrayList<Member> signIntoKitchen(int index) throws Exception{
-		if(matches.get(index).canSignIn()){
-			for(int i = 0; i < signedIntoKitchen.size(); i++){
-				if(signedIntoKitchen.get(i).equals(matches.get(index))){
-					throw new Exception();
+	public ArrayList<Member> signIntoKitchen(int index) throws Exception
+	{
+		if(matches.get(index).canSignIn())
+		{
+			for(int i = 0; i < signedIntoKitchen.size(); i++)
+			{
+				if(signedIntoKitchen.get(i).equals(matches.get(index)))
+				{
+					throw new Exception("Already Signed into Kitchen");
 				}
 			}
-			for(int i = 0; i < signedIntoStore.size(); i++){
-				if(signedIntoStore.get(i).equals(matches.get(index))){
-					throw new Exception();
+			for(int i = 0; i < signedIntoStore.size(); i++)
+			{
+				if(signedIntoStore.get(i).equals(matches.get(index)))
+				{
+					throw new Exception("Already Signed into Store");
 				}
 				long time;
 			matches.get(index).setLastSignIn(new Time(time));
 			signedIntoKitchen.add(matches.get(index));
 			}
 		}
-		else{
+		else
+		{
 			throw new Exception();
 		}
 		
 		return signedIntoKitchen;
 	}
 	
-	public ArrayList<Member> signIntoStore(int index) throws Exception{
-		if(matches.get(index).canSignIn()){
-			for(int i = 0; i < signedIntoStore.size(); i++){
-				if(signedIntoStore.get(i).equals(matches.get(index))){
-					throw new Exception();
+	public ArrayList<Member> signIntoStore(int index) throws Exception
+	{
+		if(matches.get(index).canSignIn())
+		{
+			for(int i = 0; i < signedIntoStore.size(); i++)
+			{
+				if(signedIntoStore.get(i).equals(matches.get(index)))
+				{
+					throw new Exception("Already Signed into Kitchen");
 				}
 			}
-			for(int i = 0; i < signedIntoKitchen.size(); i++){
-				if(signedIntoKitchen.get(i).equals(matches.get(index))){
+			for(int i = 0; i < signedIntoKitchen.size(); i++)
+			{
+				if(signedIntoKitchen.get(i).equals(matches.get(index)))
+				{
 					throw new Exception();
 				}
 				long time;
 			matches.get(index).setLastSignIn(new Time(time));
-			signedIntoStore.add(matches.get(index));
+			throw new Exception("Already Signed into Store");
 			}
 		}
-		else{
+		else
+		{
 			throw new Exception();
 		}
 		return signedIntoStore;
