@@ -30,14 +30,14 @@ public class Model
 			{
 				if(signedIntoKitchen.get(i).equals(matches.get(index)))
 				{
-					throw new Exception("Already Signed into Kitchen");
+					throw new Exception("This member is already signed into the kitchen");
 				}
 			}
 			for(int i = 0; i < signedIntoStore.size(); i++)
 			{
 				if(signedIntoStore.get(i).equals(matches.get(index)))
 				{
-					throw new Exception("Already Signed into Store");
+					throw new Exception("This member is already signed into the store");
 				}
 				long time;
 			matches.get(index).setLastSignIn(new Time(time));
@@ -46,7 +46,7 @@ public class Model
 		}
 		else
 		{
-			throw new Exception();
+			throw new Exception("This member cannot be signed in");
 		}
 		
 		return signedIntoKitchen;
@@ -60,7 +60,7 @@ public class Model
 			{
 				if(signedIntoStore.get(i).equals(matches.get(index)))
 				{
-					throw new Exception("Already Signed into Kitchen");
+					throw new Exception("This member is already signed into the kitchen");
 				}
 			}
 			for(int i = 0; i < signedIntoKitchen.size(); i++)
@@ -71,12 +71,12 @@ public class Model
 				}
 				long time;
 			matches.get(index).setLastSignIn(new Time(time));
-			throw new Exception("Already Signed into Store");
+			throw new Exception("This member is already signed into the store");
 			}
 		}
 		else
 		{
-			throw new Exception();
+			throw new Exception("This member cannot be signed in");
 		}
 		return signedIntoStore;
 	}
